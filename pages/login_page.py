@@ -28,8 +28,12 @@ class LoginPage(BasePageWithDriver):
         self._password_field = TextBox(self._driver.find_element(By.ID, "signinPassword"))
         return self._password_field
 
-    def get_login_button(self):
-        self._login_button = Button(self._driver.find_element(By.XPATH, "//button[text()='Login']"))
+    def get_login_enabled_button(self):
+        self._login_button = Button(self._driver.find_element(By.XPATH, "//button[text()='Login' and not(@disabled)]"))
+        return self._login_button
+
+    def get_login_disabled_button(self):
+        self._login_button = Button(self._driver.find_element(By.XPATH, "//button[text()='Login' and @disabled]"))
         return self._login_button
 
     def get_login_incorrect_alert(self):
@@ -40,10 +44,6 @@ class LoginPage(BasePageWithDriver):
         self._remember_me_button = Button(self._driver.find_element(By.ID, "remember"))
         return self._remember_me_button
 
-
     def get_wrong_user_alert(self):
         self._wrong_user_alert = Label(self._driver.find_element(By.XPATH, "//p[text()='Wrong email or password']"))
         return self._wrong_user_alert
-
-
-
